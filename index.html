@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Little Artists 🎨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --coral:   #ff6b6b;
+      --yellow:  #ffd93d;
+      --teal:    #6bcb77;
+      --blue:    #4d96ff;
+      --purple:  #c77dff;
+      --orange:  #ff9f43;
+      --pink:    #ff8fab;
+      --bg:      #fffdf7;
+      --white:   #ffffff;
+      --text:    #2d2d2d;
+      --gray:    #888;
+      --radius:  16px;
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 35%, #6bcb77 65%, #4d96ff 100%);
+      padding: 48px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .header-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+    .header-emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.15)); }
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: white;
+      text-shadow: 0 3px 12px rgba(0,0,0,.2);
+      letter-spacing: -.5px;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.9);
+      font-weight: 600;
+    }
+    .count-badge {
+      display: inline-block;
+      margin-top: 16px;
+      background: rgba(255,255,255,.25);
+      color: white;
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 700;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ── Wave divider ── */
+    .wave {
+      display: block;
+      width: 100%;
+      height: 48px;
+      margin-top: -2px;
+    }
+
+    /* ── Gallery Grid ── */
+    .gallery-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px 64px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      animation: popIn .4s ease both;
+    }
+    .card:hover {
+      transform: translateY(-8px) rotate(.5deg);
+      box-shadow: 0 12px 32px rgba(0,0,0,.14);
+    }
+    @keyframes popIn {
+      from { opacity:0; transform: scale(.9) translateY(12px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+
+    .card-top {
+      height: 6px;
+    }
+    .card-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: #f3f4f6;
+      position: relative;
+    }
+    .card-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .card:hover .card-img-wrap img { transform: scale(1.05); }
+    .card-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      gap: 8px;
+    }
+    .card-placeholder span {
+      font-size: .78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.7);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .card-body { padding: 18px 20px 20px; }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .card-date {
+      font-size: .8rem;
+      color: var(--gray);
+      font-weight: 600;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .card-date::before { content: '📅'; font-size: .75rem; }
+
+    .view-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 14px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 800;
+      color: white;
+      transition: transform .2s, opacity .2s;
+    }
+    .view-btn:hover { transform: scale(1.05); opacity: .9; }
+    .view-btn::after { content: '→'; }
+
+    /* ── Color palette cycle for cards ── */
+    .c0 .card-top, .c0 .view-btn { background: var(--coral); }
+    .c0 .card-placeholder { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); }
+    .c1 .card-top, .c1 .view-btn { background: var(--blue); }
+    .c1 .card-placeholder { background: linear-gradient(135deg, #4d96ff, #74aaff); }
+    .c2 .card-top, .c2 .view-btn { background: var(--teal); }
+    .c2 .card-placeholder { background: linear-gradient(135deg, #6bcb77, #8edd97); }
+    .c3 .card-top, .c3 .view-btn { background: var(--purple); }
+    .c3 .card-placeholder { background: linear-gradient(135deg, #c77dff, #d9a0ff); }
+    .c4 .card-top, .c4 .view-btn { background: var(--orange); }
+    .c4 .card-placeholder { background: linear-gradient(135deg, #ff9f43, #ffb870); }
+    .c5 .card-top, .c5 .view-btn { background: var(--pink); }
+    .c5 .card-placeholder { background: linear-gradient(135deg, #ff8fab, #ffadc5); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: .85rem;
+      color: var(--gray);
+      font-weight: 600;
+    }
+    footer span { color: var(--coral); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="header-emoji">🎨</span>
+    <h1 id="galleryTitle"></h1>
+    <p id="gallerySubtitle"></p>
+    <div class="count-badge" id="countBadge"></div>
+  </div>
+</header>
+
+<!-- Wave -->
+<svg class="wave" viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <path d="M0,48 C360,0 1080,0 1440,48 L1440,0 L0,0 Z" fill="#4d96ff" opacity=".15"/>
+  <path d="M0,48 C480,8 960,8 1440,48 L1440,0 L0,0 Z" fill="#ff6b6b" opacity=".1"/>
+</svg>
+
+<div class="gallery-wrap">
+  <div class="gallery-grid" id="gallery"></div>
+</div>
+
+<footer>Made with <span>♥</span> for our little artists</footer>
+
+<script src="artworks.js"></script>
+<script>
+  const CARD_EMOJIS = ['🌟','🦋','🌈','🎠','🚀','🌻','🐬','🦄','🍉','🌺'];
+  const COLORS = ['c0','c1','c2','c3','c4','c5'];
+
+  document.getElementById('galleryTitle').textContent    = GALLERY_TITLE;
+  document.getElementById('gallerySubtitle').textContent = GALLERY_SUBTITLE;
+  document.getElementById('countBadge').textContent      = ARTWORKS.length + ' artworks';
+
+  const grid = document.getElementById('gallery');
+
+  ARTWORKS.forEach((art, i) => {
+    const colorClass = COLORS[i % COLORS.length];
+    const emoji      = CARD_EMOJIS[i % CARD_EMOJIS.length];
+    const delay      = (i * 0.08).toFixed(2);
+
+    const card = document.createElement('a');
+    card.href  = `artwork.html?id=${art.id}`;
+    card.className = `card ${colorClass}`;
+    card.style.animationDelay = delay + 's';
+
+    card.innerHTML = `
+      <div class="card-top"></div>
+      <div class="card-img-wrap">
+        <img src="${art.image}" alt="${art.title}"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="card-placeholder" style="display:none;">
+          ${emoji}<span>artwork</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${art.title}</div>
+        <div class="card-date">${art.date}</div>
+        <div class="view-btn">View Artwork</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artwork — Our Little Artists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --coral:  #ff6b6b;
+      --yellow: #ffd93d;
+      --teal:   #6bcb77;
+      --blue:   #4d96ff;
+      --purple: #c77dff;
+      --orange: #ff9f43;
+      --pink:   #ff8fab;
+      --bg:     #fffdf7;
+      --white:  #ffffff;
+      --text:   #2d2d2d;
+      --gray:   #888;
+    }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Top Nav ── */
+    nav {
+      background: white;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      padding: 0 24px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-inner {
+      max-width: 900px; margin: 0 auto;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      text-decoration: none;
+      font-size: .88rem; font-weight: 800;
+      color: var(--blue);
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: #e8f1ff;
+      transition: background .2s, transform .2s;
+    }
+    .back-btn:hover { background: #d0e4ff; transform: translateX(-2px); }
+    .back-btn::before { content: '←'; font-size: 1rem; }
+    .nav-logo { font-size: 1rem; font-weight: 900; color: var(--text); }
+    .nav-logo span { color: var(--coral); }
+
+    /* ── Page ── */
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Artwork Frame ── */
+    .artwork-frame {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12);
+      margin-bottom: 32px;
+      animation: slideUp .4s ease both;
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .frame-header {
+      height: 10px;
+      background: linear-gradient(90deg, var(--coral), var(--yellow), var(--teal), var(--blue), var(--purple));
+    }
+
+    .artwork-img-wrap {
+      width: 100%;
+      max-height: 560px;
+      overflow: hidden;
+      background: #f3f4f6;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .artwork-img-wrap img {
+      width: 100%;
+      height: 100%;
+      max-height: 560px;
+      object-fit: contain;
+      display: block;
+    }
+    .img-placeholder {
+      width: 100%;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 5rem;
+      background: linear-gradient(135deg, #ffd93d22, #ff6b6b22, #4d96ff22);
+    }
+    .img-placeholder p {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--gray);
+    }
+
+    /* ── Info Card ── */
+    .info-card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 36px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      animation: slideUp .4s .1s ease both;
+    }
+
+    .artwork-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-bottom: 24px;
+    }
+    .meta-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 16px; border-radius: 999px;
+      font-size: .82rem; font-weight: 800;
+    }
+    .meta-date { background: #fff4cc; color: #9a6c00; }
+
+    .divider {
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--coral), var(--yellow), var(--teal), var(--blue));
+      margin-bottom: 22px;
+      opacity: .35;
+    }
+
+    .desc-label {
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+    .description {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #444;
+      font-weight: 600;
+    }
+
+    /* ── Navigation between artworks ── */
+    .art-nav {
+      display: flex; gap: 12px; justify-content: space-between;
+      margin-top: 32px;
+      animation: slideUp .4s .2s ease both;
+    }
+    .art-nav-btn {
+      flex: 1;
+      padding: 14px 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+      font-size: .88rem;
+      transition: transform .2s, box-shadow .2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .art-nav-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.12); }
+    .art-nav-btn.prev { justify-content: flex-start; }
+    .art-nav-btn.prev::before { content: '←'; font-size: 1.1rem; color: var(--coral); }
+    .art-nav-btn.next { justify-content: flex-end; }
+    .art-nav-btn.next::after  { content: '→'; font-size: 1.1rem; color: var(--blue); }
+    .nav-label { font-size: .7rem; color: var(--gray); display: block; }
+    .nav-title  { display: block; }
+    .art-nav-btn.disabled { opacity: .35; pointer-events: none; }
+
+    /* ── Not Found ── */
+    .not-found {
+      text-align: center; padding: 80px 24px;
+    }
+    .not-found .emoji { font-size: 4rem; margin-bottom: 16px; }
+    .not-found h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 10px; }
+    .not-found p { color: var(--gray); margin-bottom: 24px; }
+    .not-found a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 12px 28px; background: var(--coral); color: white;
+      border-radius: 999px; font-weight: 800; text-decoration: none;
+      transition: transform .2s;
+    }
+    .not-found a:hover { transform: scale(1.04); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 24px;
+      font-size: .85rem; color: var(--gray); font-weight: 600;
+    }
+    footer span { color: var(--coral); }
+
+    @media (max-width: 560px) {
+      .info-card { padding: 22px 20px; }
+      .art-nav { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="back-btn">All Artworks</a>
+    <div class="nav-logo">Our Little <span>Artists</span> 🎨</div>
+  </div>
+</nav>
+
+<div class="page" id="pageContent"></div>
+
+<footer>Made with <span>♥</span> for our little artists</footer>
+
+<script src="artworks.js"></script>
+<script>
+  const params  = new URLSearchParams(window.location.search);
+  const id      = params.get('id');
+  const index   = ARTWORKS.findIndex(a => a.id === id);
+  const art     = index !== -1 ? ARTWORKS[index] : null;
+  const page    = document.getElementById('pageContent');
+
+  const COLORS  = ['var(--coral)','var(--blue)','var(--teal)','var(--purple)','var(--orange)','var(--pink)'];
+  const EMOJIS  = ['🌟','🦋','🌈','🎠','🚀','🌻','🐬','🦄','🍉','🌺'];
+
+  if (!art) {
+    page.innerHTML = `
+      <div class="not-found">
+        <div class="emoji">🖼️</div>
+        <h2>Artwork not found</h2>
+        <p>This artwork doesn't exist or may have been moved.</p>
+        <a href="index.html">← Back to Gallery</a>
+      </div>`;
+  } else {
+    document.title = `${art.title} — Our Little Artists`;
+
+    const colorIdx = index % COLORS.length;
+    const accent   = COLORS[colorIdx];
+    const emoji    = EMOJIS[index % EMOJIS.length];
+
+    const prev = index > 0 ? ARTWORKS[index - 1] : null;
+    const next = index < ARTWORKS.length - 1 ? ARTWORKS[index + 1] : null;
+
+    page.innerHTML = `
+      <div class="artwork-frame">
+        <div class="frame-header"></div>
+        <div class="artwork-img-wrap">
+          <img id="artImg" src="${art.image}" alt="${art.title}"
+               onerror="this.style.display='none'; document.getElementById('artPlaceholder').style.display='flex';" />
+          <div class="img-placeholder" id="artPlaceholder" style="display:none;">
+            ${emoji}
+            <p>Image coming soon!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h1 class="artwork-title">${art.title}</h1>
+        <div class="meta-row">
+          <span class="meta-tag meta-date">📅 ${art.date}</span>
+        </div>
+        <div class="divider"></div>
+        <div class="desc-label">About this artwork</div>
+        <p class="description">${art.description}</p>
+      </div>
+
+      <div class="art-nav">
+        <a href="${prev ? 'artwork.html?id=' + prev.id : '#'}"
+           class="art-nav-btn prev ${prev ? '' : 'disabled'}">
+          <span><span class="nav-label">Previous</span><span class="nav-title">${prev ? prev.title : '—'}</span></span>
+        </a>
+        <a href="${next ? 'artwork.html?id=' + next.id : '#'}"
+           class="art-nav-btn next ${next ? '' : 'disabled'}">
+          <span><span class="nav-label">Next</span><span class="nav-title">${next ? next.title : '—'}</span></span>
+        </a>
+      </div>
+    `;
+  }
+</script>
+</body>
+</html>
